@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Home from '../views/Home.vue'
+import MangementLayout from '../components/Layout/ManagementLayout.vue'
 import PageA from '../views/PageA.vue'
 import PageB from '../views/PageB.vue'
 import Login from '../views/Login.vue'
@@ -11,29 +12,48 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
-      path: '/pageA',
-      name: 'pageA',
-      component: PageA
-    },
-    {
-      path: '/PageB',
-      name: 'pageB',
-      component: PageB
-    },
-    {
-      path: '/Resume',
-      name: 'resume',
-      component: Resume
+      component: MangementLayout,
+      children: [
+        {
+          path: '/home',
+          name: 'Home',
+          component: Home
+        },
+        {
+          path: '/pageA',
+          name: 'pageA',
+          component: PageA
+        },
+        {
+          path: '/PageB',
+          name: 'pageB',
+          component: PageB
+        },
+        {
+          path: '/Resume',
+          name: 'resume',
+          component: Resume
+        },
+      ],
     },
     {
       path: '/login',
+      name: 'Login',
       component: Login
     },
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const shifoudenglu = localStorage.getItem('shifoudenglu')
+  const dontNeedLoginPageNames = ['Login']
+  if (shifoudenglu !== 'shi' && !dontNeedLoginPageNames.includes(to.name)) {
+    next({
+      name: 'Login',
+    })
+  } else {
+    next()
+  }
 })
 
 export default router

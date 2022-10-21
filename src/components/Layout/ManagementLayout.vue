@@ -21,11 +21,10 @@
           <span>页面 B</span>
         </el-menu-item>
 
-        <el-sub-menu>
+        <el-sub-menu index="aboutMe">
           <template #title>
             <span>关于我</span>
           </template>
-          
           <el-menu-item index="resume">
             <span>个人简历</span>
           </el-menu-item>

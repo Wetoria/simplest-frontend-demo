@@ -1,14 +1,9 @@
 <template>
-  <Layout />
+  <router-view></router-view>
 </template>
 
 <script>
-import Layout from './components/Layout/ManagementLayout.vue'
-
 export default {
-  components: {
-    Layout,
-  }
 }
 </script>
 
