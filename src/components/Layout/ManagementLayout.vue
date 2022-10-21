@@ -49,8 +49,9 @@
       ></div>
       <div
         style="
-         width: 100%;
-         height: calc(100% - 50px);
+          width: 100%;
+          height: calc(100% - 50px);
+          overflow: scroll;
         "
       >
         <router-view></router-view>
