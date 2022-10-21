@@ -1,19 +1,41 @@
 <template>
   <div class="container">
-    <div class="left"
-      style="
-        width: 290px;
-        height: 100%;
-        background: white;
-      "
-    ></div>
-    <div class="right"
-      style="
-        width: calc(100% - 290px);
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-      "
+    <div
+      class="left"
+      :style="{
+        width: `${sideBarWidth}px`,
+        height: `100%`,
+        background: `#222b45`,
+      }"
+    >
+      <el-menu default-active="2" class="el-menu-vertical-demo">
+        <el-menu-item index="pageA">
+          <span>页面 A</span>
+        </el-menu-item>
+
+        <el-menu-item index="pageB">
+          <span>页面 B</span>
+        </el-menu-item>
+
+        <el-sub-menu>
+          <template #title>
+            <span>关于我</span>
+          </template>
+          
+          <el-menu-item index="aboutMe">
+            <span>个人简历</span>
+          </el-menu-item>
+        </el-sub-menu>
+      </el-menu>
+    </div>
+    <div
+      class="right"
+      :style="{
+        width: `calc(100% - ${sideBarWidth}px)`,
+        height: `100%`,
+        display: `flex`,
+        flexDirection: `column`,
+      }"
     >
       <div
         style="
@@ -34,12 +56,32 @@
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      sideBarWidth: 220,
+    }
+  },
+}
+</script>
+
 <style>
 .container {
   width: 100%;
   height: 100%;
   background: #EEF0F3;
   display: flex;
+}
+
+.container .el-menu {
+  background-color: unset;
+}
+
+.container .el-sub-menu__title,
+.container .el-menu-item-group__title,
+.container .el-menu-item {
+  color: white;
 }
 
 </style>
