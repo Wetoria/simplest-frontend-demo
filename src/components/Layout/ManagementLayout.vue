@@ -6,6 +6,7 @@
         width: `${sideBarWidth}px`,
         height: `100%`,
         background: `#222b45`,
+        overflowY: `auto`,
       }"
     >
       <el-menu default-active="Home" @select="handleMenuSelect">
@@ -45,13 +46,15 @@
           width: 100%;
           height: 50px;
           background: white;
+          border-bottom: 1px solid #d1d1d1;
         "
       ></div>
       <div
         style="
-          width: 100%;
-          height: calc(100% - 50px);
-          overflow: scroll;
+          width: calc(100% - 16px);
+          height: calc(100% - 50px - 16px);
+          overflow: auto;
+          padding: 8px;
         "
       >
         <router-view></router-view>
@@ -88,6 +91,7 @@ export default {
 
 .container .el-menu {
   background-color: unset;
+  border-right: unset;
 }
 
 .container .el-sub-menu__title,
