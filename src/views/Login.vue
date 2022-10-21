@@ -7,21 +7,22 @@
 
 <script>
 export default {
+  name: 'LoginVie',
   methods: {
     handleUsernameInput(event) {
-      localStorage.setItem('yonghuming', event.target.value)
+      localStorage.setItem('yonghuming', event.target.value);
     },
     handleInput(event) {
-      localStorage.setItem('shifoudenglu', event.target.value)
+      localStorage.setItem('shifoudenglu', event.target.value);
     },
     handleConfirm() {
-      const pwd = localStorage.getItem('shifoudenglu')
+      const pwd = localStorage.getItem('shifoudenglu');
       if (pwd === 'shi') {
-        this.$router.back()
+        this.$router.back();
       } else {
-        alert('密码不正确')
+        alert('密码不正确');
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
