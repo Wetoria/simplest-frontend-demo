@@ -8,7 +8,10 @@
         background: `#222b45`,
       }"
     >
-      <el-menu default-active="2" class="el-menu-vertical-demo">
+      <el-menu default-active="Home" @select="handleMenuSelect">
+        <el-menu-item index="Home">
+          <span>首页</span>
+        </el-menu-item>
         <el-menu-item index="pageA">
           <span>页面 A</span>
         </el-menu-item>
@@ -22,7 +25,7 @@
             <span>关于我</span>
           </template>
           
-          <el-menu-item index="aboutMe">
+          <el-menu-item index="resume">
             <span>个人简历</span>
           </el-menu-item>
         </el-sub-menu>
@@ -63,6 +66,14 @@ export default {
       sideBarWidth: 220,
     }
   },
+  methods: {
+    handleMenuSelect(index) {
+      console.log('idnex is ', index)
+      this.$router.push({
+        name: index,
+      })
+    },
+  }
 }
 </script>
 
