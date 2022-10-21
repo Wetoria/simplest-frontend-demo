@@ -109,7 +109,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 h1,
 h2 {
   border-bottom: 1px solid #409eff;
@@ -120,10 +120,6 @@ h2,
 h3,
 h4 {
   color: #409eff
-}
-
-body {
-  background: #d1d1d1;
 }
 
 .resume-container {
