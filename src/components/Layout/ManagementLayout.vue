@@ -46,8 +46,31 @@
           height: 50px;
           background: white;
           border-bottom: 1px solid #d1d1d1;
+          display: flex;
+          justify-content: space-between;
         "
-      ></div>
+      >
+        <div class="header-container">
+        </div>
+        <div
+          class="header-container"
+          style="display: flex; justify-content: flex-end; padding-right: 20px"
+        >
+          <el-dropdown style="height: 100%; display: flex; align-items: center;" @command="handleCommand">
+            <span class="el-dropdown-link">
+              <el-icon style="margin-right: 8px"><Avatar /></el-icon>{{ username }}
+              <el-icon class="el-icon--right">
+                <arrow-down />
+              </el-icon>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="logout">退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
+      </div>
       <div
         style="
           width: calc(100% - 16px);
@@ -64,9 +87,14 @@
 
 <script>
 export default {
+  created() {
+    const username = localStorage.getItem('用户名');
+    this.username = username;
+  },
   data() {
     return {
       sideBarWidth: 220,
+      username: '',
     }
   },
   methods: {
@@ -76,6 +104,16 @@ export default {
         name: index,
       })
     },
+    handleCommand(command) {
+      const isLogout = command === 'logout'
+      if (isLogout) {
+        localStorage.removeItem('已登录')
+        localStorage.removeItem('用户名')
+        this.$router.push({
+          name: 'Login',
+        })
+      }
+    }
   }
 }
 </script>
@@ -88,15 +126,24 @@ export default {
   display: flex;
 }
 
-.container .el-menu {
+.container .left .el-menu {
   background-color: unset;
   border-right: unset;
 }
 
-.container .el-sub-menu__title,
-.container .el-menu-item-group__title,
-.container .el-menu-item {
+.container .left .el-sub-menu__title,
+.container .left .el-menu-item-group__title,
+.container .left .el-menu-item {
   color: white;
+}
+
+.container .left .el-menu .is-active {
+  color: #409eff;
+}
+
+.header-container {
+  height: 100%;
+  min-width: 100px;
 }
 
 </style>
