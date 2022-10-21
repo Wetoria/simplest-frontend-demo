@@ -1,13 +1,13 @@
 <template>
-  <SinglePageLayout />
+  <Layout />
 </template>
 
 <script>
-import SinglePageLayout from './components/Layout/SinglePageLayout.vue'
+import Layout from './components/Layout/ManagementLayout.vue'
 
 export default {
   components: {
-    SinglePageLayout,
+    Layout,
   }
 }
 </script>
