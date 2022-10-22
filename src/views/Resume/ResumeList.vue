@@ -2,7 +2,7 @@
   <h4 v-if="level == 4">{{ title }}</h4>
   <h2 v-else>{{ title }}</h2>
   <ul :class="editing ? 'editing' : ''">
-    <li v-for="(item, index) of list" :key="index">
+    <li v-for="(item, index) of finalList" :key="index">
       <el-row v-if="editing">
         <el-col :span="22">
           <el-input :modelValue="item" @input="handleInput(index, $event)" />
@@ -37,6 +37,17 @@
 
 export default {
   props: ['list', 'title', 'level', 'editing'],
+  computed: {
+    finalList() {
+      if (this.innerList.length) {
+        return this.innerList
+      }
+      if (this.editing) {
+        return ['']
+      }
+      return []
+    },
+  },
   data() {
     return {
       innerList: this.list,
@@ -51,9 +62,6 @@ export default {
     },
     handleDelete(index) {
       this.innerList.splice(index, 1)
-      if (this.innerList.length === 0) {
-        this.innerList.push('')
-      }
     }
   }
 }
