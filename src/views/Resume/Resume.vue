@@ -1,9 +1,11 @@
 <template>
   <div class="resume-container">
+    <el-button v-if="editing" type="primary" @click="handleComplete">完成</el-button>
+    <el-button v-else type="primary" @click="handleEdit">编辑</el-button>
     <h1>{{ info.name }}</h1>
-    <ResumeList title="联系方式" :list="info.contact" />
-    <ResumeList title="个人信息" :list="info.info" />
-    <ResumeList title="技能清单" :list="info.skills" />
+    <ResumeList title="联系方式" :list="info.contact" :editing="editing" />
+    <ResumeList title="个人信息" :list="info.info" :editing="editing" />
+    <ResumeList title="技能清单" :list="info.skills" :editing="editing" />
     <h2>工作经历</h2>
     <template
       v-for="item of info.experiences"
@@ -16,22 +18,17 @@
         :title="project.projectName" 
         :list="project.projectExp" 
         level="4" 
+        :editing="editing"
       />
     </template>
-    <ResumeList title="其他" :list="info.others" />
+    <ResumeList title="其他" :list="info.others" :editing="editing" />
   </div>
 </template>
 
 <script>
 import ResumeList from './ResumeList.vue'
 
-export default {
-  components: {
-    ResumeList,
-  },
-  data() {
-    return {
-      info: {
+const defaultResumeInfo = {
         name: 'Vip',
         contact: [
           '手机：13700001234',
@@ -94,7 +91,35 @@ export default {
           '爱好折腾。个人时间记录系统，微信(macOS)消息转发给指定账户，以及通过指定账户给特定好友发送消息。',
         ],
       }
+
+export default {
+  components: {
+    ResumeList,
+  },
+  created() {
+    const cunChuDeShuJu = JSON.parse(localStorage.getItem('resumeInfo'))
+    if (cunChuDeShuJu) {
+      this.info = cunChuDeShuJu
+    } else {
+      this.info = defaultResumeInfo
     }
+  },
+  data() {
+    return {
+      editing: false,
+      info: {},
+    }
+  },
+  methods: {
+    handleEdit() {
+      this.editing = true;
+    },
+    handleComplete() {
+      this.editing = false;
+
+      // 数据的保存工作
+      localStorage.setItem('resumeInfo', JSON.stringify(this.info))
+    },
   }
 }
 </script>
@@ -111,6 +136,13 @@ h1 {
 
 h2 {
   margin: 20px 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #409eff;
 }
 
 .resume-container {
