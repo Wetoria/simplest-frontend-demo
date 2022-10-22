@@ -1,7 +1,14 @@
 <template>
   <div v-if="finalList.length">
-    <h4 v-if="level == 4">{{ title }}</h4>
-    <h2 v-else>{{ title }}</h2>
+    <template v-if="level == 4">
+      <el-input
+        v-if="editing"
+        :modelValue="modelValue"
+        @input="handleTitleInput"
+      ></el-input>
+      <h4 class="project-title" v-else>{{ title }}</h4>
+    </template>
+    <h2 class="block-title" v-else>{{ title }}</h2>
     <ul :class="editing ? 'editing' : ''">
       <li v-for="(item, index) of finalList" :key="index">
         <el-row v-if="editing">
@@ -38,7 +45,7 @@
 <script>
 
 export default {
-  props: ['list', 'title', 'level', 'editing'],
+  props: ['list', 'title', 'level', 'editing', 'modelValue'],
   computed: {
     finalList() {
       if (this.innerList.length) {
@@ -56,6 +63,9 @@ export default {
     }
   },
   methods: {
+    handleTitleInput(value) {
+      this.$emit('update:modelValue', value)
+    },
     handleInput(index, event) {
       this.innerList[index] = event
     },

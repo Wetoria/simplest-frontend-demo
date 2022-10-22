@@ -19,8 +19,9 @@
   <div class="project-exp-container" v-else-if="type === 'PROJECT'">
     <h2>项目经历</h2>
     <ResumeList 
-      v-for="project of data"
-      :key="project.projectName" 
+      v-for="(project, index) of data"
+      :key="index" 
+      v-model="project.projectName"
       :title="project.projectName" 
       :list="project.projectExp" 
       level="4" 
