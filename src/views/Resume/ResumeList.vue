@@ -1,11 +1,22 @@
 <template>
   <div v-if="finalList.length">
     <template v-if="level == 4">
-      <el-input
-        v-if="editing"
-        :modelValue="modelValue"
-        @input="handleTitleInput"
-      ></el-input>
+      <el-row v-if="editing">
+        <el-col :span="22">
+          <el-input
+            :modelValue="modelValue"
+            @input="handleTitleInput"
+          ></el-input>
+        </el-col>
+        <el-col :span="2">
+          <el-row align="middle" style="height: 100%;">
+            <AddAndDeleteOperation
+              @add="$emit('addProject')"
+              @delete="$emit('deleteProject')"
+            />
+          </el-row>
+        </el-col>
+      </el-row>
       <h4 class="project-title" v-else>{{ title }}</h4>
     </template>
     <h2 class="block-title" v-else>{{ title }}</h2>
@@ -17,22 +28,10 @@
           </el-col>
           <el-col :span="2">
             <el-row align="middle" style="height: 100%;">
-              <el-button
-                class="opt-btn"
-                style="margin-left: 8px"
-                type="primary"
-                icon="Plus"
-                circle
-                @click="handleAdd(index)"
-              ></el-button>
-              <el-button
-                class="opt-btn"
-                style="margin-left: 8px"
-                type="danger"
-                icon="Minus"
-                circle
-                @click="handleDelete(index)"
-              ></el-button>
+              <AddAndDeleteOperation
+                @add="handleAdd(index)"
+                @delete="handleDelete(index)"
+              />
             </el-row>
           </el-col>
         </el-row>
@@ -43,9 +42,14 @@
 </template>
 
 <script>
+import AddAndDeleteOperation from './AddAndDeleteOperation.vue'
 
 export default {
   props: ['list', 'title', 'level', 'editing', 'modelValue'],
+  emits: ['addProject', 'deleteProject'],
+  components: {
+    AddAndDeleteOperation,
+  },
   computed: {
     finalList() {
       if (this.innerList.length) {
@@ -104,10 +108,5 @@ ul {
 }
 ul.editing li {
   margin-bottom: 8px;
-}
-
-.opt-btn {
-  width: 20px;
-  height: 20px;
 }
 </style>

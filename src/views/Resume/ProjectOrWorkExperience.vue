@@ -16,16 +16,18 @@
         />
       </template>
   </div>
-  <div class="project-exp-container" v-else-if="type === 'PROJECT'">
+  <div class="project-exp-container" v-else-if="type === 'PROJECT' && finalProjectData.length">
     <h2>项目经历</h2>
     <ResumeList 
-      v-for="(project, index) of data"
-      :key="index" 
+      v-for="(project, index) of finalProjectData"
+      :key="project.id" 
       v-model="project.projectName"
       :title="project.projectName" 
       :list="project.projectExp" 
       level="4" 
       :editing="editing"
+      @addProject="handleAddProject(index)"
+      @deleteProject="handleDeleteProject(index)"
     />
   </div>
 </template>
@@ -41,6 +43,38 @@ export default {
   },
   components: {
     ResumeList,
+  },
+  computed: {
+    finalProjectData() {
+      if (this.innerData.length) {
+        return this.innerData
+      }
+      if (this.editing) {
+        return [{
+          projectName: "",
+          projectExp: [],
+          id: new Date().getTime(),
+        }]
+      }
+      return []
+    }
+  },
+  data() {
+    return {
+      innerData: this.data,
+    };
+  },
+  methods: {
+    handleAddProject(index) {
+      this.innerData.splice(index + 1, 0, {
+        projectName: '',
+        projectExp: [],
+        id: new Date().getTime(),
+      })
+    },
+    handleDeleteProject(index) {
+      this.innerData.splice(index, 1)
+    },
   }
 }
 </script>
