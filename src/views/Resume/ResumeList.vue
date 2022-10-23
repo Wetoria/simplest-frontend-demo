@@ -46,7 +46,7 @@ import AddAndDeleteOperation from './AddAndDeleteOperation.vue'
 
 export default {
   props: ['list', 'title', 'level', 'editing', 'modelValue'],
-  emits: ['addProject', 'deleteProject'],
+  emits: ['addProject', 'deleteProject', 'update:modelValue'],
   components: {
     AddAndDeleteOperation,
   },
