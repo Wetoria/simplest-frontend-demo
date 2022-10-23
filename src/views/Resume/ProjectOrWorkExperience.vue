@@ -13,7 +13,7 @@
       />
     </template>
   </div>
-  <div class="project-exp-container" v-else-if="type === 'PROJECT'">
+  <div class="project-exp-container" v-else-if="type === 'PROJECT' && (innerData.length || editing)">
     <h2>
       项目经历
       <AddAndDeleteOperation
