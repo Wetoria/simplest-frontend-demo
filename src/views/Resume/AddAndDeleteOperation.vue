@@ -1,5 +1,6 @@
 <template>
   <el-button
+    v-if="showAdd"
     class="opt-btn"
     style="margin-left: 8px"
     type="primary"
@@ -8,6 +9,7 @@
     @click="handleAdd"
   ></el-button>
   <el-button
+    v-if="showDelete"
     class="opt-btn"
     style="margin-left: 8px"
     type="danger"
@@ -20,6 +22,16 @@
 <script>
 export default {
   emits: ['add', 'delete'],
+  props: {
+    showAdd: {
+      type: Boolean,
+      default: true,
+    },
+    showDelete: {
+      type: Boolean,
+      default: true,
+    },
+  },
   methods: {
     handleAdd() {
       this.$emit('add')
