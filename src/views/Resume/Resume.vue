@@ -1,8 +1,10 @@
 <template>
   <div class="resume-container">
     <el-button v-if="editing" type="primary" @click="handleComplete">完成</el-button>
-    <el-button v-else type="primary" @click="handleEdit">编辑</el-button>
-    <el-button @click="handleExportPDF">导出 PDF</el-button>
+    <template v-else>
+      <el-button type="primary" @click="handleEdit">编辑</el-button>
+      <el-button @click="handleExportPDF">导出 PDF</el-button>
+    </template>
     <h1>{{ info.name }}</h1>
     <ResumeList title="联系方式" :list="info.contact" :editing="editing" />
     <ResumeList title="个人信息" :list="info.info" :editing="editing" />
