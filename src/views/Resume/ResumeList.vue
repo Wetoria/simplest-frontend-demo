@@ -6,6 +6,7 @@
           <el-input
             :modelValue="modelValue"
             @input="handleTitleInput"
+            placeholder="请输入项目名称"
           ></el-input>
         </el-col>
         <el-col :span="2">
@@ -24,7 +25,7 @@
       <li v-for="(item, index) of finalList" :key="index">
         <el-row v-if="editing">
           <el-col :span="22">
-            <el-input :modelValue="item" @input="handleInput(index, $event)" />
+            <el-input :modelValue="item" @input="handleInput(index, $event)" placeholder="请输入详细经历" />
           </el-col>
           <el-col :span="2">
             <el-row align="middle" style="height: 100%;">
